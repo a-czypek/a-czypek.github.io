@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motu · Angelika</title>
+  <meta name="description" content="Motu: a habit tracker app built in Flutter and Firebase as my bachelor's thesis.">
+  <meta name="theme-color" content="#fafaf7">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="nav">
+    <a href="index.html" class="logo">angelika</a>
+    <a href="index.html#projects" class="nav-back">← all projects</a>
+  </header>
+
+  <main class="case" id="content">
+    <section class="case-hero">
+      <p class="hand case-eyebrow">project 02 / 03</p>
+      <h1 class="case-title">Motu</h1>
+      <p class="case-lead">A habit tracker that turns small daily wins into streaks, charts and badges. My bachelor's thesis project, built in Flutter with Firebase.</p>
+      <ul class="pills"><li>Flutter</li><li>Dart</li><li>Firebase</li><li>Cloud Firestore</li><li>fl_chart</li></ul>
+    </section>
+
+    <div class="shots">
+      <img class="shot" style="object-position: top" src="photos/motu/mainpage.webp" alt="Home screen with the week strip and today's habits, each with its streak">
+      <img class="shot" style="object-position: top" src="photos/motu/statystyki.webp" alt="Statistics: weekly completion trend and completion rate by weekday">
+      <img class="shot" src="photos/motu/kalendarz.webp" alt="Monthly calendar with daily progress rings and a weekly summary">
+    </div>
+
+    <div class="case-body">
+      <aside class="glance">
+        <h2>at a glance</h2>
+        <dl>
+          <dt>Type</dt><dd>Mobile app</dd>
+          <dt>Context</dt><dd>Bachelor's thesis</dd>
+          <dt>Timeline</dt><dd>2025–2026</dd>
+          <dt>Stack</dt><dd>Flutter, Dart, Firebase Auth, Cloud Firestore</dd>
+        </dl>
+      </aside>
+
+      <div class="case-text">
+        <section>
+          <h2>The idea</h2>
+          <p>Most habit apps stop at a checkbox. With Motu I wanted to show the bigger picture: which habits are going well, which ones need attention, and how they change over weeks and months.</p>
+          <p>I designed the screens in Figma first and then built the app screen by screen to match.</p>
+        </section>
+
+        <section>
+          <h2>What it does</h2>
+          <ul class="features">
+            <li>Accounts with sign-up, email verification and password reset, with data synced to the cloud.</li>
+            <li>Habits with their own icon, colour and group, each with its current streak. A habit can have a set time or stay "all day", and the home screen shows how many of today's habits are done. Swipe a habit to mark a break day, edit it or delete it.</li>
+            <li>A calendar with daily, weekly and monthly views, plus a short note for each day. Past days are read-only, so you can look back but not rewrite history.</li>
+            <li>Statistics split into four tabs, filtered by week, month, 3 months, year or your own date range.</li>
+            <li>The longest current streaks and the habits needing attention, so you know where to focus.</li>
+            <li>Badges for milestones and the full app in Polish and English.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Under the hood</h2>
+          <p>Firebase Auth handles accounts and Cloud Firestore stores habits, groups and daily notes. The logic lives in separate services, so the screens only display data and never calculate it.</p>
+          <p>Charts are built with <code>fl_chart</code>, and unit tests cover the statistics, streak and badge logic, with a fake data source in place of Firebase, so they run without a real database.</p>
+        </section>
+
+        <section>
+          <h2>What's next</h2>
+          <ul class="features next">
+            <li>Longer pauses for a trip, an illness or an exam period, with a reminder when it's time to come back.</li>
+            <li>Daily micro challenges, like 15 minutes of reading, that count towards their own badges.</li>
+            <li>Reminders with a chosen time and sound.</li>
+            <li>Ad hoc habits: quickly add a one-off habit for the day, without setting up a full recurring one.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <a class="next-project" href="yajisan-kazusan.html">
+      <span><span class="hand">next project</span><strong>Yajisan Kazusan</strong></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </main>
+
+  <footer class="footer">
+    <p><span class="hand signature">xo, angelika</span> © <span id="year"></span> · made with ♥ and a lot of keystrokes</p>
+  </footer>
+
+  <script src="project.js"></script>
+</body>
+</html>

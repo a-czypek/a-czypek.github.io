@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yajisan Kazusan · Angelika</title>
+  <meta name="description" content="Yajisan Kazusan: a Flutter version of the Japanese logic puzzle, with generated levels that each have exactly one solution and can be solved by logic alone.">
+  <meta name="theme-color" content="#fafaf7">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="nav">
+    <a href="index.html" class="logo">angelika</a>
+    <a href="index.html#projects" class="nav-back">← all projects</a>
+  </header>
+
+  <main class="case" id="content">
+    <section class="case-hero">
+      <p class="hand case-eyebrow">project 03 / 03</p>
+      <h1 class="case-title">Yajisan Kazusan</h1>
+      <p class="case-lead">A mobile version of Yajisan-Kazusan, a Japanese logic puzzle with arrow clues. Every level has exactly one solution and can be solved by logic alone, with no guessing.</p>
+      <ul class="pills"><li>Flutter</li><li>Dart</li><li>Riverpod</li><li>freezed</li></ul>
+    </section>
+
+    <div class="shots">
+      <img class="shot" src="photos/yajisan/grascreen.webp" alt="A 6×6 board in level 2, with arrow clues, shaded cells and dots">
+      <img class="shot" src="photos/yajisan/falsetrial.webp" alt="Tutorial page explaining that a shaded clue is lying, so the real count in its direction is different">
+      <img class="shot" src="photos/yajisan/mainpage.webp" alt="Home screen with a red torii gate between the words yajisan and kazusan">
+    </div>
+
+    <div class="case-body">
+      <aside class="glance">
+        <h2>at a glance</h2>
+        <dl>
+          <dt>Type</dt><dd>Mobile puzzle game</dd>
+          <dt>Year</dt><dd>2026</dd>
+          <dt>Boards</dt><dd>From 5×5 to 12×12</dd>
+          <dt>Stack</dt><dd>Flutter, Dart, Riverpod, freezed</dd>
+        </dl>
+      </aside>
+
+      <div class="case-text">
+        <section>
+          <h2>The puzzle</h2>
+          <p>You shade cells on a grid. Shaded cells can't touch side by side, and all the unshaded cells have to stay connected. Each clue says how many shaded cells lie in the direction of its arrow.</p>
+          <p>The twist: if you shade a clue, it becomes a liar, so the real count in its direction must be anything but the number it shows. Deciding which clues to trust is the whole game, and I love puzzles like that.</p>
+        </section>
+
+        <section>
+          <h2>What it does</h2>
+          <ul class="features">
+            <li>Levels on every board size from 5×5 to 12×12, played in order.</li>
+            <li>Hints that reveal a cell when you get stuck: you start with 3 and earn one more for every solved level. Plus a step-by-step tutorial for first-time players.</li>
+            <li>Achievements and statistics to keep track of your progress.</li>
+            <li>A timer, undo and redo, and three tools: shade a cell, mark it as white with a dot, or erase it. The check button highlights every cell that breaks a rule.</li>
+            <li>Autosave for every board size, so you can leave a level halfway and pick it up later.</li>
+            <li>Sound and haptic feedback.</li>
+            <li>The whole game in English and Polish, switchable in the settings.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Under the hood</h2>
+          <p>The levels aren't drawn by hand, and they aren't generated on the phone either: they're generated in advance and ship with the app. The generator picks a random valid solution, puts a clue on every cell, and then removes clues one by one, the simplest first, as long as the board can still be solved by logic. What's left is a minimal set of clues, topped up to a target share of clue cells for each board size.</p>
+          <p>The solver never guesses. It applies the simple rules until nothing changes, then tries single cells: assume a colour, look for a contradiction, and if there is one, the cell must be the other colour. A board is accepted only when this fills in <strong>every</strong> cell, which also means it has exactly one solution. The number of these trial steps is the difficulty measure, and the generator asks for more of them on bigger boards: at least 1 on 5×5, up to 4 on 10×10 and above.</p>
+          <p>Game state is managed with Riverpod and the models are immutable classes generated with <code>freezed</code>. The board is drawn with a custom painter rather than a grid of widgets.</p>
+        </section>
+
+        <section>
+          <h2>What's next</h2>
+          <ul class="features next">
+            <li>Releasing the game on Google Play.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <a class="next-project" href="stopfinder.html">
+      <span><span class="hand">next project</span><strong>StopFinder</strong></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </main>
+
+  <footer class="footer">
+    <p><span class="hand signature">xo, angelika</span> © <span id="year"></span> · made with ♥ and a lot of keystrokes</p>
+  </footer>
+
+  <script src="project.js"></script>
+</body>
+</html>

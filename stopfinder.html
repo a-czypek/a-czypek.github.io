@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StopFinder · Angelika</title>
+  <meta name="description" content="StopFinder: a Chrome extension for flat hunting in Kraków that shows how far you have to walk from a listing to the nearest bus and tram stop.">
+  <meta name="theme-color" content="#fafaf7">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="nav">
+    <a href="index.html" class="logo">angelika</a>
+    <a href="index.html#projects" class="nav-back">← all projects</a>
+  </header>
+
+  <main class="case" id="content">
+    <section class="case-hero">
+      <p class="hand case-eyebrow">project 01 / 03</p>
+      <h1 class="case-title">StopFinder</h1>
+      <p class="case-lead">How far is the walk from this flat to the nearest tram stop? A Chrome extension for flat hunting in Kraków that answers it right on the listing, using open timetable and map data instead of paid map APIs.</p>
+      <ul class="pills"><li>Java 21</li><li>Spring Boot</li><li>PostGIS</li><li>OSRM</li><li>Docker</li><li>JavaScript</li></ul>
+    </section>
+
+    <div class="shots wide">
+      <img class="shot" src="photos/stopfinder/stopfinder.webp" alt="An Otodom flat listing in Kraków with the StopFinder popup open, showing the nearest bus stop 328 m and the nearest tram stop 448 m away on foot">
+    </div>
+
+    <div class="case-body">
+      <aside class="glance">
+        <h2>at a glance</h2>
+        <dl>
+          <dt>Type</dt><dd>Chrome extension + backend</dd>
+          <dt>Year</dt><dd>2026</dd>
+          <dt>City</dt><dd>Kraków</dd>
+          <dt>Data</dt><dd>Kraków public transport timetables, OpenStreetMap</dd>
+          <dt>Stack</dt><dd>Java, Spring Boot, PostGIS, OSRM, Docker</dd>
+        </dl>
+      </aside>
+
+      <div class="case-text">
+        <section>
+          <h2>The idea</h2>
+          <p>When you're flat hunting, listings rarely tell you how well connected a place really is. I wanted that answer right next to the listing: the nearest bus and tram stop, and how long it takes to walk there.</p>
+          <p>A straight line on a map isn't enough. The closest stop can be on the other side of railway tracks, a river or a fenced estate. So StopFinder measures the real walking route, and it does it without paid map APIs: the stops come from the city's open timetable data and the routes from OpenStreetMap.</p>
+        </section>
+
+        <section>
+          <h2>What it does</h2>
+          <ul class="features">
+            <li>Open a flat listing on Otodom or OLX, click the extension, and it finds the flat's location on the page by itself. On other pages you can use your current location instead.</li>
+            <li>Shows the nearest bus stop and the nearest tram stop, with the walking distance and the time it takes at an easy pace.</li>
+            <li>Picks the stop that is closest on foot, which isn't always the one that looks closest on the map. Across random points in Kraków, that happens almost one time in four.</li>
+            <li>Says when a listing only gives an approximate location, and falls back to straight-line distance, clearly marked, if the route server is down.</li>
+            <li>One script downloads Kraków's latest timetables and map, prepares everything and loads the stops, so the data is easy to refresh.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Under the hood</h2>
+          <p>Kraków publishes its timetables as three open GTFS feeds: city buses, trams and the Mobilis bus lines. The backend imports all three in one transaction, so a broken file can't leave the database half-loaded. Each stop gets its type by following stop times → trips → routes, and a stop served by both buses and trams is stored once for each, so either search finds it.</p>
+          <p>Finding the stop is a two-step search. PostGIS uses its KNN operator <code>&lt;-&gt;</code> on a GiST index to pick the 8 nearest stops of each type in a straight line. Then a single request to OSRM, a routing engine running on the OpenStreetMap map of Kraków with a walking profile, measures the real route to all of them at once, and the shortest walk wins.</p>
+<pre class="code"><code><span class="c">-- candidates of one type: fast index lookup, then exact metres</span>
+SELECT k.name, k.lat, k.lon,
+       ST_Distance(k.geom::geography, :point::geography) AS distance_m
+FROM (
+    SELECT s.name, s.lat, s.lon, s.geom
+    FROM stops s
+    WHERE s.type = :type
+    ORDER BY s.geom &lt;-&gt; :point   <span class="c">-- KNN on the GiST index</span>
+    LIMIT :limit + 10
+) k
+ORDER BY distance_m
+LIMIT :limit;</code></pre>
+          <p>The index sorts by distance in degrees, and in Kraków a degree of longitude is only about 0.64 of a degree of latitude. That's why the query takes a few extra candidates from the index and re-sorts them by the true distance in metres before anything goes to OSRM.</p>
+          <p>The database and OSRM run in Docker. The schema lives in <code>init.sql</code>, with the point column generated by Postgres itself, and Hibernate only validates that the entities match it. The backend has unit tests, tests of the OSRM client against a stub HTTP server, and integration tests on a real PostGIS database in Testcontainers. The extension's location parsers are tested in Node.</p>
+        </section>
+
+        <section>
+          <h2>What's next</h2>
+          <ul class="features next">
+            <li>Finding the location from the listing's address when the page has no coordinates.</li>
+            <li>Caching results, so opening the same listing again is instant.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <a class="next-project" href="motu.html">
+      <span><span class="hand">next project</span><strong>Motu</strong></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </main>
+
+  <footer class="footer">
+    <p><span class="hand signature">xo, angelika</span> © <span id="year"></span> · made with ♥ and a lot of keystrokes</p>
+  </footer>
+
+  <script src="project.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Angelika · Software Engineer</title>
+  <meta name="description" content="Angelika - Software Engineer">
+  <meta property="og:title" content="Angelika · Software Engineer">
+  <meta property="og:description" content="Software engineer in Kraków.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#fafaf7">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#about">Skip to content</a>
+
+  <header class="nav">
+    <a href="./" class="logo" id="logo">angelika</a>
+    <nav aria-label="Main">
+      <a href="#about"><kbd class="cap sm" data-key="Digit1">1</kbd><span>about</span></a>
+      <a href="#projects"><kbd class="cap sm" data-key="Digit2">2</kbd><span>projects</span></a>
+      <a href="#contact"><kbd class="cap sm" data-key="Digit3">3</kbd><span>contact</span></a>
+    </nav>
+    <div class="nav-tools">
+      <button class="sound" id="soundToggle" aria-pressed="false" title="Key sounds">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4z"/><path class="waves" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        <span class="sr">Key sounds</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <canvas id="kb" aria-hidden="true"></canvas>
+      <div class="hero-text">
+        <p class="hand hello" aria-hidden="true">hi there! <span class="hello-arrow">↘</span></p>
+        <svg class="doodle sparkle s1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C12.6 9 14 11.2 22 12c-8 .8-9.4 3-10 10-.6-7-2-9.2-10-10 8-.8 9.4-3 10-10z"/></svg><svg class="doodle sparkle s2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C12.6 9 14 11.2 22 12c-8 .8-9.4 3-10 10-.6-7-2-9.2-10-10 8-.8 9.4-3 10-10z"/></svg>
+        <h1 class="typed">
+          <span class="sr">Angelika, software engineer</span>
+          <span id="typed" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- about me -->
+    <section class="section" id="about">
+      <h2 class="section-title reveal"><span class="squiggle">a bit about me</span></h2>
+      <div class="about-grid">
+        <div class="about reveal">
+          <p>Hi, I'm Angelika, a <mark class="hl">software engineer</mark> based in Kraków who enjoys the puzzle-solving side of building software.</p>
+          <p>Outside of work I'm happiest with a good book, a board game, or a game of chess. Running helps me reset (and makes room for my favourite food, pasta). At home I'm kept company by my cat, my most loyal coworker and the undisputed head of the household.</p>
+          <p class="hand stack-note">things i build with ↓</p>
+          <ul class="pills"><li>Java</li><li>Flutter</li><li>Dart</li><li>Python</li><li>SQL</li></ul>
+        </div>
+        <figure class="photo reveal">
+          <div class="photo-frame">
+            <img src="photos/me.webp" alt="Angelika">
+          </div>
+          <span class="sticker">software<br>engineer ✦</span>
+          <svg class="doodle sparkle s3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C12.6 9 14 11.2 22 12c-8 .8-9.4 3-10 10-.6-7-2-9.2-10-10 8-.8 9.4-3 10-10z"/></svg><svg class="doodle sparkle s4" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C12.6 9 14 11.2 22 12c-8 .8-9.4 3-10 10-.6-7-2-9.2-10-10 8-.8 9.4-3 10-10z"/></svg>
+          <figcaption class="hand">that's me! ↑</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- projects -->
+    <div class="band">
+    <section class="section" id="projects">
+      <div class="title-row">
+        <h2 class="section-title reveal"><span class="squiggle">things i've built</span></h2>
+        <p class="hand side-note reveal">a few favourites.<br>more on my github!<svg class="doodle curly " viewBox="0 0 90 70" aria-hidden="true"><path d="M4 8c24-8 46 2 42 22-3 13-20 11-16 0 5-12 30-6 44 30"/><path d="M62 52l12 8 2-14"/></svg></p>
+      </div>
+
+      <div class="projects">
+        <article class="project reveal">
+          <span class="hand new-badge" aria-hidden="true">new!</span>
+          <img class="thumb" style="object-position: right top" src="photos/stopfinder/stopfinder.webp" alt="An Otodom flat listing in Kraków with the StopFinder popup open, showing the nearest bus stop 328 m and the nearest tram stop 448 m away on foot">
+          <h3><a class="card-link" href="stopfinder.html">StopFinder</a></h3>
+          <p>A Chrome extension for flat hunting in Kraków. Open a listing on Otodom or OLX and it shows how far you have to walk to the nearest bus and tram stop, measured along real streets with open map and timetable data instead of paid map APIs.</p>
+          <ul class="pills small"><li>Java</li><li>Spring Boot</li><li>PostGIS</li><li>OSRM</li></ul>
+          <p class="more" aria-hidden="true">read more <span>→</span></p>
+        </article>
+        <article class="project reveal">
+          <img class="thumb contain" src="photos/motu/logo.webp" alt="Motu logo">
+          <h3><a class="card-link" href="motu.html">Motu</a></h3>
+          <p>A habit tracker app I built for my bachelor's thesis. Tick off habits, build streaks, follow your progress on charts and earn badges along the way, with accounts and data synced through Firebase.</p>
+          <ul class="pills small"><li>Flutter</li><li>Dart</li><li>Firebase</li></ul>
+          <p class="more" aria-hidden="true">read more <span>→</span></p>
+        </article>
+        <article class="project reveal">
+          <img class="thumb contain" src="photos/yajisan/gra.webp" alt="Yajisan Kazusan game board">
+          <h3><a class="card-link" href="yajisan-kazusan.html">Yajisan Kazusan</a></h3>
+          <p>A mobile version of Yajisan-Kazusan, a Japanese logic puzzle with arrow clues. Every level is generated and can be solved by logic alone. It has hints, a tutorial, achievements and autosave.</p>
+          <ul class="pills small"><li>Flutter</li><li>Dart</li><li>Riverpod</li></ul>
+          <p class="more" aria-hidden="true">read more <span>→</span></p>
+        </article>
+      </div>
+    </section>
+    </div>
+
+    <!-- contact -->
+    <section class="section contact" id="contact">
+      <h2 class="section-title reveal"><span class="circled">get in touch</span> <span aria-hidden="true">👋</span></h2>
+      <div class="contact-grid">
+        <p class="links big contact-links reveal">
+          <a href="mailto:angelika.czypek@icloud.com">e-mail ↗</a>
+          <a href="https://github.com/a-czypek" target="_blank" rel="noopener">github ↗</a>
+          <a href="https://www.linkedin.com/in/angelika-czypek" target="_blank" rel="noopener">linkedin ↗</a>
+        </p>
+        <div class="contact-key reveal">
+          <span class="hand press-me" aria-hidden="true">psst, press me<svg class="doodle curly to-enter" viewBox="0 0 90 70" aria-hidden="true"><path d="M4 8c24-8 46 2 42 22-3 13-20 11-16 0 5-12 30-6 44 30"/><path d="M62 52l12 8 2-14"/></svg></span>
+          <button class="cap cap-accent enter-key" id="enterKey" data-key="Enter" data-email="angelika.czypek@icloud.com" aria-label="Copy my e-mail address">Enter<span class="arrow" aria-hidden="true">↵</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><span class="hand signature">xo, angelika</span> © <span id="year"></span> · made with ♥</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="main.js"></script>
+  <script src="keyboard.js"></script>
+</body>
+</html>
